@@ -184,10 +184,13 @@ func NewClassifierTfIdf(classes ...Class) (c *Classifier) {
 func NewClassifier(classes ...Class) (c *Classifier) {
 	n := len(classes)
 
+	/*
+	// Eliminado por Joaquin Herrero porque al poder agregar nuevas clases ya no tiene sentido
 	// check size
 	if n < 2 {
 		panic("provide at least two classes")
 	}
+	*/
 
 	// check uniqueness
 	check := make(map[Class]bool, n)
@@ -596,4 +599,10 @@ func findMax(scores []float64) (inx int, strict bool) {
 		}
 	}
 	return
+}
+// Añadido por Joaquin Herrero
+// https://github.com/jbrukh/bayesian/issues/5
+func (c *Classifier) AddClass(class Class) {
+        c.Classes = append(c.Classes, class)
+        c.datas[class] = newClassData()
 }
